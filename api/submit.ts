@@ -24,6 +24,7 @@ function getResultCopy(score: number): string {
 }
 
 function notificationHtml(params: {
+  authorName: string
   userName: string
   companyName: string
   email: string
@@ -31,7 +32,7 @@ function notificationHtml(params: {
   submittedDate: string
   notionUrl: string
 }): string {
-  const { userName, companyName, email, fitScore, submittedDate, notionUrl } = params
+  const { authorName, userName, companyName, email, fitScore, submittedDate, notionUrl } = params
   const scoreColor = fitScore >= 75 ? '#7C3AED' : fitScore >= 50 ? '#b45309' : '#C2563E'
 
   return `<!DOCTYPE html>
@@ -43,7 +44,7 @@ function notificationHtml(params: {
       <table width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;">
 
         <tr><td style="padding-bottom:32px;">
-          <p style="margin:0;font-size:13px;color:rgba(250,249,246,0.4);letter-spacing:0.05em;">${fromName} - Match Check</p>
+          <p style="margin:0;font-size:13px;color:rgba(250,249,246,0.4);letter-spacing:0.05em;">${authorName} - Match Check</p>
         </td></tr>
 
         <tr><td style="padding-bottom:32px;border-bottom:1px solid rgba(250,249,246,0.1);">
@@ -84,12 +85,13 @@ function notificationHtml(params: {
 }
 
 function userHtml(params: {
+  authorName: string
   userName: string
   companyName: string
   fitScore: number
   calendarUrl: string
 }): string {
-  const { userName, companyName, fitScore, calendarUrl } = params
+  const { authorName, userName, companyName, fitScore, calendarUrl } = params
   const resultCopy = getResultCopy(fitScore)
   const barFillPx = Math.round(fitScore * 2)
   const barEmptyPx = 200 - barFillPx
@@ -108,7 +110,7 @@ function userHtml(params: {
 
         <!-- Wordmark -->
         <tr><td style="padding-bottom:40px;">
-          <p style="margin:0;font-size:13px;color:rgba(250,249,246,0.4);letter-spacing:0.05em;">${fromName} - Match Check</p>
+          <p style="margin:0;font-size:13px;color:rgba(250,249,246,0.4);letter-spacing:0.05em;">${authorName} - Match Check</p>
         </td></tr>
 
         <!-- Greeting -->
@@ -118,7 +120,7 @@ function userHtml(params: {
 
         <!-- Subline -->
         <tr><td style="padding-bottom:40px;border-bottom:1px solid rgba(250,249,246,0.1);">
-          <p style="margin:0;font-size:16px;color:rgba(250,249,246,0.5);line-height:1.6;">Here's how <span style="color:#faf9f6;">${companyName}</span> scored on the Match Check - an honest fit assessment against ${fromName}'s actual preferences on culture, leadership, and org design.</p>
+          <p style="margin:0;font-size:16px;color:rgba(250,249,246,0.5);line-height:1.6;">Here's how <span style="color:#faf9f6;">${companyName}</span> scored on the Match Check - an honest fit assessment against ${authorName}'s actual preferences on culture, leadership, and org design.</p>
         </td></tr>
 
         <!-- Score + bar -->
@@ -148,12 +150,12 @@ function userHtml(params: {
         <!-- CTA -->
         <tr><td style="padding-top:40px;padding-bottom:16px;">
           <p style="margin:0 0 24px;font-size:15px;color:rgba(250,249,246,0.5);line-height:1.6;">Want to dig into the results or just have a conversation? Book a slot directly.</p>
-          <a href="${calendarUrl}" style="display:inline-block;background:#7C3AED;color:#faf9f6;text-decoration:none;font-size:15px;font-weight:500;padding:16px 32px;border-radius:999px;font-family:'DM Sans',Helvetica,Arial,sans-serif;">Schedule a call with ${fromName} &rarr;</a>
+          <a href="${calendarUrl}" style="display:inline-block;background:#7C3AED;color:#faf9f6;text-decoration:none;font-size:15px;font-weight:500;padding:16px 32px;border-radius:999px;font-family:'DM Sans',Helvetica,Arial,sans-serif;">Schedule a call with ${authorName} &rarr;</a>
         </td></tr>
 
         <!-- Footer -->
         <tr><td style="padding-top:40px;margin-top:40px;border-top:1px solid rgba(250,249,246,0.08);">
-          <p style="margin:0;font-size:13px;color:rgba(250,249,246,0.3);line-height:1.6;">You're receiving this because you completed the Match Check. Simply reply to this email if you'd like to reach ${fromName} directly.</p>
+          <p style="margin:0;font-size:13px;color:rgba(250,249,246,0.3);line-height:1.6;">You're receiving this because you completed the Match Check. Simply reply to this email if you'd like to reach ${authorName} directly.</p>
         </td></tr>
 
       </table>
@@ -219,7 +221,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         to: notificationEmail,
         replyTo: `${userName} <${email}>`,
         subject: `New Match Check result: ${companyName} - ${fitScore}%`,
-        html: notificationHtml({ userName, companyName, email, fitScore, submittedDate, notionUrl }),
+        html: notificationHtml({ authorName: fromName, userName, companyName, email, fitScore, submittedDate, notionUrl }),
       }),
       // Results to the user
       resend.emails.send({
@@ -227,7 +229,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         to: email,
         replyTo: notificationEmail,
         subject: `${userName}, here's your Match Check result`,
-        html: userHtml({ userName, companyName, fitScore, calendarUrl }),
+        html: userHtml({ authorName: fromName, userName, companyName, fitScore, calendarUrl }),
       }),
     ])
 
