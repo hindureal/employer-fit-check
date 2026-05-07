@@ -2,7 +2,7 @@
 
 A playful, conviction-driven fit assessment tool you can deploy as your own. Potential employers answer a sequence of questions and receive a weighted fit score against your actual preferences on culture, leadership, and working style.
 
-Built with Vite + React + TypeScript + Tailwind + Framer Motion. Results write to a Notion database. Notification emails via Resend.
+Built with Vite + React + TypeScript + Tailwind + Framer Motion. Results write to a Notion database. Two emails fire on submission via Resend: a results email to the user and a notification to you.
 
 ---
 
@@ -133,10 +133,43 @@ Before deploying, set up the following and add their credentials to `.env.local`
 | Service | Purpose | Cost |
 |---|---|---|
 | Notion | Results database | Free |
-| Resend (resend.com) | Notification emails | Free up to 3k/month |
+| Resend (resend.com) | Sending both emails | Free up to 3k/month |
+| Your email service (ProtonMail, Gmail, etc.) | Receiving notifications and user replies | Varies |
 | Vercel | Hosting + serverless function | Free |
 
 See `match_check_claude_code_instructions.md` for the full environment variable reference and Notion database schema.
+
+---
+
+## Email setup guide
+
+The app sends two emails on each submission: a results email to the user and a notification to you. Both go through Resend.
+
+### 1. Resend account and sending domain
+
+1. Create an account at resend.com
+2. Go to **API Keys** - create a key and save it as `RESEND_API_KEY`
+3. Go to **Domains** - add a sending domain
+
+**Domain recommendation:** use a subdomain for Resend (e.g. `mail.yourdomain.com`) if you also want to use the root domain with your email service. This keeps DNS records for each service completely separate and avoids SPF conflicts. Resend will give you DNS records to add - add them wherever your domain's DNS is managed (e.g. Vercel DNS).
+
+### 2. Your email service
+
+Set up your email service (ProtonMail, Gmail, or any other) on your root domain (e.g. `yourname@yourdomain.com`). This is the address you set as `NOTIFICATION_EMAIL` - where your notifications land and where user replies go when they reply to the results email.
+
+### 3. Environment variables
+
+```
+FROM_EMAIL=noreply@mail.yourdomain.com   # must match your verified Resend sending domain
+FROM_NAME=Your Name                       # shown as sender on the user-facing results email
+NOTIFICATION_EMAIL=you@yourdomain.com    # your inbox - receives notifications, Reply-To on user email
+VITE_CALENDAR_URL=https://...            # your scheduling link - shown in app and results email
+```
+
+### 4. How replies work
+
+- User receives results email - if they reply, it goes to `NOTIFICATION_EMAIL` (your inbox)
+- You receive notification email - if you reply, it goes directly to the user's submitted email address
 
 ---
 
