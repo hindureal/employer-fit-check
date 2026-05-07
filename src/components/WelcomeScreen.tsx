@@ -40,7 +40,7 @@ export default function WelcomeScreen({ onComplete }: Props) {
     <div className="min-h-svh flex items-center justify-center px-6">
       <div className="w-full max-w-[560px]">
         <p className="font-serif text-[13px] text-paper/40 mb-10 tracking-wide">
-          Thomas Euler
+          {import.meta.env.VITE_AUTHOR_NAME}
         </p>
 
         <h1 className="font-serif text-[48px] leading-tight text-paper mb-3 max-sm:text-[36px]">

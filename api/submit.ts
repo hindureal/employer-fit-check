@@ -43,7 +43,7 @@ function notificationHtml(params: {
       <table width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;">
 
         <tr><td style="padding-bottom:32px;">
-          <p style="margin:0;font-size:13px;color:rgba(250,249,246,0.4);letter-spacing:0.05em;">Thomas Euler - Match Check</p>
+          <p style="margin:0;font-size:13px;color:rgba(250,249,246,0.4);letter-spacing:0.05em;">${fromName} - Match Check</p>
         </td></tr>
 
         <tr><td style="padding-bottom:32px;border-bottom:1px solid rgba(250,249,246,0.1);">
@@ -108,7 +108,7 @@ function userHtml(params: {
 
         <!-- Wordmark -->
         <tr><td style="padding-bottom:40px;">
-          <p style="margin:0;font-size:13px;color:rgba(250,249,246,0.4);letter-spacing:0.05em;">Thomas Euler - Match Check</p>
+          <p style="margin:0;font-size:13px;color:rgba(250,249,246,0.4);letter-spacing:0.05em;">${fromName} - Match Check</p>
         </td></tr>
 
         <!-- Greeting -->
@@ -118,7 +118,7 @@ function userHtml(params: {
 
         <!-- Subline -->
         <tr><td style="padding-bottom:40px;border-bottom:1px solid rgba(250,249,246,0.1);">
-          <p style="margin:0;font-size:16px;color:rgba(250,249,246,0.5);line-height:1.6;">Here's how <span style="color:#faf9f6;">${companyName}</span> scored on the Match Check - an honest fit assessment against Thomas Euler's actual preferences on culture, leadership, and org design.</p>
+          <p style="margin:0;font-size:16px;color:rgba(250,249,246,0.5);line-height:1.6;">Here's how <span style="color:#faf9f6;">${companyName}</span> scored on the Match Check - an honest fit assessment against ${fromName}'s actual preferences on culture, leadership, and org design.</p>
         </td></tr>
 
         <!-- Score + bar -->
@@ -148,12 +148,12 @@ function userHtml(params: {
         <!-- CTA -->
         <tr><td style="padding-top:40px;padding-bottom:16px;">
           <p style="margin:0 0 24px;font-size:15px;color:rgba(250,249,246,0.5);line-height:1.6;">Want to dig into the results or just have a conversation? Book a slot directly.</p>
-          <a href="${calendarUrl}" style="display:inline-block;background:#7C3AED;color:#faf9f6;text-decoration:none;font-size:15px;font-weight:500;padding:16px 32px;border-radius:999px;font-family:'DM Sans',Helvetica,Arial,sans-serif;">Schedule a call with Thomas &rarr;</a>
+          <a href="${calendarUrl}" style="display:inline-block;background:#7C3AED;color:#faf9f6;text-decoration:none;font-size:15px;font-weight:500;padding:16px 32px;border-radius:999px;font-family:'DM Sans',Helvetica,Arial,sans-serif;">Schedule a call with ${fromName} &rarr;</a>
         </td></tr>
 
         <!-- Footer -->
         <tr><td style="padding-top:40px;margin-top:40px;border-top:1px solid rgba(250,249,246,0.08);">
-          <p style="margin:0;font-size:13px;color:rgba(250,249,246,0.3);line-height:1.6;">You're receiving this because you completed the Match Check. Simply reply to this email if you'd like to reach Thomas directly.</p>
+          <p style="margin:0;font-size:13px;color:rgba(250,249,246,0.3);line-height:1.6;">You're receiving this because you completed the Match Check. Simply reply to this email if you'd like to reach ${fromName} directly.</p>
         </td></tr>
 
       </table>
@@ -213,7 +213,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     })
 
     await Promise.all([
-      // Notification to Thomas
+      // Notification to author
       resend.emails.send({
         from: `Match Check <${fromEmail}>`,
         to: notificationEmail,

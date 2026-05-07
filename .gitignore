@@ -23,7 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 
-# My Claude Code Instruction Files
-match_check_claude_code_instructions.md
-match_check_spec.md
-match_check_ui_spec.md
+# Explicit env file exclusions (in addition to *.local above)
+.env
+.env.*.local
