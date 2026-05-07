@@ -173,9 +173,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const databaseId = process.env.NOTION_DATABASE_ID
   const notificationEmail = process.env.NOTIFICATION_EMAIL
+  const fromEmail = process.env.FROM_EMAIL
+  const fromName = process.env.FROM_NAME
   const calendarUrl = process.env.VITE_CALENDAR_URL ?? '#'
 
-  if (!databaseId || !notificationEmail) {
+  if (!databaseId || !notificationEmail || !fromEmail || !fromName) {
     return res.status(500).json({ error: 'Missing environment variables' })
   }
 
@@ -213,7 +215,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     await Promise.all([
       // Notification to Thomas
       resend.emails.send({
-        from: 'Match Check <noreply@mail.croorgs.xyz>',
+        from: `Match Check <${fromEmail}>`,
         to: notificationEmail,
         replyTo: `${userName} <${email}>`,
         subject: `New Match Check result: ${companyName} - ${fitScore}%`,
@@ -221,7 +223,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }),
       // Results to the user
       resend.emails.send({
-        from: 'Thomas Euler <noreply@mail.croorgs.xyz>',
+        from: `${fromName} <${fromEmail}>`,
         to: email,
         replyTo: notificationEmail,
         subject: `${userName}, here's your Match Check result`,
