@@ -11,6 +11,7 @@ const INITIAL_SESSION: SessionState = {
   companyName: '',
   answers: {},
   rawAnswers: {},
+  sliderFlips: {},
   currentQuestionIndex: 0,
   questionOrder: [],
   runningFitScore: 0,
@@ -22,11 +23,16 @@ export default function App() {
 
   const handleWelcomeComplete = useCallback((userName: string, companyName: string) => {
     const questionOrder = shuffleArray(questions.map(q => q.id))
+    const sliderFlips: Record<string, boolean> = {}
+    for (const q of questions) {
+      if (q.type === 'slider') sliderFlips[q.id] = Math.random() > 0.5
+    }
     setSession({
       ...INITIAL_SESSION,
       userName,
       companyName,
       questionOrder,
+      sliderFlips,
     })
     setScreen('questions')
   }, [])
@@ -102,6 +108,7 @@ export default function App() {
           companyName={session.companyName}
           currentAnswer={session.answers[currentQuestion.id]}
           rawAnswer={session.rawAnswers[currentQuestion.id]}
+          sliderFlipped={session.sliderFlips[currentQuestion.id] ?? false}
           progress={progress}
           fitScore={session.runningFitScore}
           questionIndex={session.currentQuestionIndex}

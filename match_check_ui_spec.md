@@ -81,11 +81,11 @@ After company confirmed - CTA button appears (Framer Motion: fade in):
 - Text: DM Sans 16px, `#faf9f6`
 
 **Slider:**
-- Track: 3px height, `rgba(250,249,246,0.15)` background
-- Fill left of thumb: `#7C3AED`
+- Track: 3px height, `rgba(250,249,246,0.15)` background - no dynamic fill, track stays neutral at all positions
 - Thumb: 24px circle, `#7C3AED`, no border
 - Snaps to 5 positions: 0, 25, 50, 75, 100
 - End labels: DM Sans 15px, secondary text color, positioned below track at each end
+- Label sides randomized per session: the "preferred" end appears on left or right with equal probability. The score is inverted when flipped so a leftmost position still scores correctly. This prevents the slider from visually cueing which direction is preferred.
 
 **Self-selection (multi-select pills):**
 - Same pill style as single choice

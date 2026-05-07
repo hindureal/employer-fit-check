@@ -15,6 +15,7 @@ interface Props {
   companyName: string
   currentAnswer: number | undefined
   rawAnswer: string | string[] | undefined
+  sliderFlipped: boolean
   progress: number
   fitScore: number
   questionIndex: number
@@ -32,6 +33,7 @@ export default function QuestionScreen({
   companyName,
   currentAnswer,
   rawAnswer,
+  sliderFlipped,
   progress,
   fitScore,
   questionIndex,
@@ -59,9 +61,10 @@ export default function QuestionScreen({
 
   useEffect(() => {
     if (question.type === 'slider') {
-      const val = currentAnswer ?? SLIDER_DEFAULT
-      setSliderValue(val)
-      onAnswer(question.id, val, String(val))
+      const rawPos = typeof rawAnswer === 'string' ? Number(rawAnswer) : SLIDER_DEFAULT
+      setSliderValue(rawPos)
+      const score = sliderFlipped ? 100 - rawPos : rawPos
+      onAnswer(question.id, score, String(rawPos))
     } else if (question.type === 'multiselect') {
       const ids = Array.isArray(rawAnswer) ? rawAnswer : []
       setSelectedOptionIds(ids)
@@ -76,7 +79,8 @@ export default function QuestionScreen({
 
   useEffect(() => {
     if (question.type === 'slider') {
-      onAnswer(question.id, sliderValue, String(sliderValue))
+      const score = sliderFlipped ? 100 - sliderValue : sliderValue
+      onAnswer(question.id, score, String(sliderValue))
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sliderValue])
@@ -176,8 +180,8 @@ export default function QuestionScreen({
                   <SliderInput
                     value={sliderValue}
                     onChange={setSliderValue}
-                    leftLabel={question.sliderLeftLabel ?? ''}
-                    rightLabel={question.sliderRightLabel ?? ''}
+                    leftLabel={sliderFlipped ? (question.sliderRightLabel ?? '') : (question.sliderLeftLabel ?? '')}
+                    rightLabel={sliderFlipped ? (question.sliderLeftLabel ?? '') : (question.sliderRightLabel ?? '')}
                   />
                 )}
 

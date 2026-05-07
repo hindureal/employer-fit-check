@@ -22,6 +22,7 @@ export interface SessionState {
   companyName: string
   answers: Record<string, number>
   rawAnswers: Record<string, string | string[]>
+  sliderFlips: Record<string, boolean>
   currentQuestionIndex: number
   questionOrder: string[]
   runningFitScore: number

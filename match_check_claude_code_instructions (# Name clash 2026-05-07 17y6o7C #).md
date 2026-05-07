@@ -121,11 +121,12 @@ interface Question {
 interface SessionState {
   userName: string
   companyName: string
-  answers: Record<string, number>           // questionId -> score (0-100)
-  rawAnswers: Record<string, string | string[]>  // questionId -> selected option ID(s), used to restore UI state on back navigation
+  answers: Record<string, number>                // questionId -> score (0-100)
+  rawAnswers: Record<string, string | string[]>  // questionId -> selected option ID(s) or raw slider position, used to restore UI state on back navigation
+  sliderFlips: Record<string, boolean>           // questionId -> whether labels are flipped for that slider this session
   currentQuestionIndex: number
-  questionOrder: string[]                   // randomized question IDs
-  runningFitScore: number                   // recalculated after each answer
+  questionOrder: string[]                        // randomized question IDs
+  runningFitScore: number                        // recalculated after each answer
 }
 ```
 

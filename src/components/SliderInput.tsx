@@ -6,16 +6,9 @@ interface Props {
 }
 
 export default function SliderInput({ value, onChange, leftLabel, rightLabel }: Props) {
-  const fillPercent = value
-
   return (
     <div className="w-full py-6">
       <div className="relative">
-        {/* Filled track overlay */}
-        <div
-          className="absolute top-1/2 left-0 h-[3px] bg-purple rounded-full pointer-events-none -translate-y-1/2 transition-all duration-150"
-          style={{ width: `${fillPercent}%` }}
-        />
         <input
           type="range"
           min={0}
