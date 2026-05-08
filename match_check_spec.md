@@ -33,7 +33,7 @@ Data captured: `userName`, `companyName`
 - Question order is randomized on each session
 - For multiple choice and self-selection questions: answer option order is also randomized
 - Back button available on every question screen (returns to previous question, restores previous answer)
-- Progress indicator: minimal horizontal bar at the bottom of the screen (no numbers, purely visual)
+- Progress indicator: minimal horizontal bar at the top of the screen (no numbers, purely visual)
 - Fit score bar: vertical bar on the side of the screen, 0% at bottom to 100% at top. Red at 0, green at 100. Updates after each answer is confirmed and user moves to next question (not real-time during answering)
 
 ---
@@ -52,24 +52,10 @@ Data captured: `userName`, `companyName`
 
 ### Cluster 1 - Structure and ambiguity
 
-**C1Q1 - Trade-off choice**
-[companyName] is scaling fast. Which problem would concern you more?
-- A: Things are moving so fast that we're making avoidable mistakes `[score: 0]`
-- B: We're adding process and structure faster than we actually need it `[score: 100]`
-
 **C1Q2 - Slider (5-point snap: 0, 25, 50, 75, 100)**
 Where does your organization sit?
 Scale: `Decisions flow up` → `Decisions happen where the knowledge is`
 Score = slider position (0-100)
-
-**C1Q3 - Self-selection (pick all that apply)**
-Be honest [userName], which of these phrases would your colleagues most likely use to describe how your org handles uncertainty?
-- "We move and adjust" `[green]`
-- "People just figure it out" `[green]`
-- "We align before we act" `[red]`
-- "We're working on it" `[neutral - excluded from scoring]`
-- "It depends who you ask" `[neutral - excluded from scoring]`
-- "Honestly, it's a bit chaotic" `[neutral - excluded from scoring]`
 
 **C1Q4 - Single choice**
 Imagine: a talented new hire acts on their own initiative and gets a good result - but didn't follow the established process - what typically happens in your organization?
@@ -81,11 +67,6 @@ Imagine: a talented new hire acts on their own initiative and gets a good result
 ---
 
 ### Cluster 2 - Culture and psychological safety
-
-**C2Q2 - Slider (5-point snap)**
-[userName], how would you describe your organization's relationship with being wrong?
-Scale: `Mistakes are costly and visibility around them is managed carefully` → `Mistakes are expected, shared openly, and treated as information`
-Score = slider position (0-100)
 
 **C2Q3 - Self-selection (pick all that apply)**
 Which of these would you actually find in [yourCompany]?
@@ -112,11 +93,6 @@ When a complex problem has no clean answer, what does your org tend to do?
 
 ### Cluster 3 - Motivation and trust
 
-**C3Q2 - Trade-off choice**
-When onboarding a new senior hire, what's [yourCompany]'s default stance?
-- A: We give them access and autonomy and see what they do with it `[score: 100]`
-- B: We have a structured onboarding that defines expectations before expanding scope `[score: 40]`
-
 **C3Q3 - Single choice**
 A strong performer makes an independent call that fails visibly. What most accurately describes what happens next in your org, [userName]?
 - A: It's treated as data - discussed openly and learned from without career implications `[score: 100]`
@@ -141,11 +117,6 @@ Which failure mode would concern you more in your organization?
 ---
 
 ### Cluster 4 - Leadership philosophy
-
-**C4Q1 - Trade-off choice**
-At [yourCompany], when a critical project needs a leader, what typically happens?
-- A: The most senior available person takes ownership `[score: 0]`
-- B: The person with the most relevant expertise or drive steps up, regardless of level `[score: 100]`
 
 **C4Q2 - Slider (5-point snap)**
 How is accountability primarily maintained in your organization, [yourName]?
@@ -202,25 +173,18 @@ Selecting only greens pushes toward 100. Selecting only reds pushes toward 0. Mi
 
 | Question | Description | Weight |
 |---|---|---|
-| C1Q1 | Fast scaling failure mode | 5 |
-| C1Q2 | Decision flow slider | 8 |
-| C1Q3 | How org handles uncertainty | 7 |
-| C1Q4 | Initiative without process | 6 |
-| C2Q2 | Relationship with being wrong | 6 |
-| C2Q3 | What you'd find in your org | 5 |
-| C2Q4 | Senior leader challenged | 8 |
-| C2Q5 | Complex problem, no clean answer | 7 |
-| C3Q2 | Default stance on new hire | 5 |
-| C3Q3 | Strong performer fails visibly | 6 |
-| C3Q4 | What your team would agree with | 6 |
-| C3Q5 | Independence failure mode | 7 |
-| C4Q1 | Critical project needs a leader | 4 |
-| C4Q2 | Accountability slider | 6 |
-| C4Q3 | Leadership in your org | 6 |
-| C4Q5 | Leadership team failure mode | 8 |
+| C1Q2 | Decision flow slider | 11 |
+| C1Q4 | Initiative without process | 8 |
+| C2Q3 | What you'd find in your org | 7 |
+| C2Q4 | Senior leader challenged | 11 |
+| C2Q5 | Complex problem, no clean answer | 9 |
+| C3Q3 | Strong performer fails visibly | 9 |
+| C3Q4 | What your team would agree with | 8 |
+| C3Q5 | Independence failure mode | 9 |
+| C4Q2 | Accountability slider | 9 |
+| C4Q3 | Leadership in your org | 8 |
+| C4Q5 | Leadership team failure mode | 11 |
 | **Total** | | **100** |
-
-*Note: weights to be filled in from the interactive weighting table before handoff to Claude Code.*
 
 ---
 
@@ -262,19 +226,14 @@ Each submission is one row with the following fields:
 | Email | Text |
 | Overall fit score | Number |
 | Submission date | Date |
-| C1Q1 answer | Number (score 0-100) |
-| C1Q2 answer | Number |
-| C1Q3 answer | Number |
+| C1Q2 answer | Number (score 0-100) |
 | C1Q4 answer | Number |
-| C2Q2 answer | Number |
 | C2Q3 answer | Number |
 | C2Q4 answer | Number |
 | C2Q5 answer | Number |
-| C3Q2 answer | Number |
 | C3Q3 answer | Number |
 | C3Q4 answer | Number |
 | C3Q5 answer | Number |
-| C4Q1 answer | Number |
 | C4Q2 answer | Number |
 | C4Q3 answer | Number |
 | C4Q5 answer | Number |

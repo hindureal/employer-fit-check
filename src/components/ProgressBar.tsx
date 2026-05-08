@@ -6,7 +6,7 @@ interface Props {
 
 export default function ProgressBar({ progress }: Props) {
   return (
-    <div className="fixed bottom-0 left-0 right-0 h-[2px] bg-paper/10">
+    <div className="fixed top-0 left-0 right-0 h-[4px] bg-paper/10">
       <motion.div
         className="h-full bg-purple"
         initial={{ width: '0%' }}

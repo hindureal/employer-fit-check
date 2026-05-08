@@ -8,7 +8,7 @@
 
 ## What you are building
 
-A single-page web app called "Match Check." A potential employer answers 16 questions. The app calculates a weighted fit score (0-100) against the author's actual preferences on culture, leadership, and org design. The result screen shows the score, a comment, and optionally a call-to-action. On email submission, results are written to a Notion database, a results email is sent to the user, and a notification email is sent to the author.
+A single-page web app called "Match Check." A potential employer answers 11 questions. The app calculates a weighted fit score (0-100) against the author's actual preferences on culture, leadership, and org design. The result screen shows the score, a comment, and optionally a call-to-action. On email submission, results are written to a Notion database, a results email is sent to the user, and a notification email is sent to the author.
 
 ---
 
@@ -167,19 +167,14 @@ For multiselect questions, each option must have a `signal` value of `'green'`, 
 
 ```ts
 export const weights: Record<string, number> = {
-  C1Q1: [value],
   C1Q2: [value],
-  C1Q3: [value],
   C1Q4: [value],
-  C2Q2: [value],
   C2Q3: [value],
   C2Q4: [value],
   C2Q5: [value],
-  C3Q2: [value],
   C3Q3: [value],
   C3Q4: [value],
   C3Q5: [value],
-  C4Q1: [value],
   C4Q2: [value],
   C4Q3: [value],
   C4Q5: [value],
@@ -256,7 +251,7 @@ Recalculate running fit score after every answer using only answered questions s
 - Shows percentage label below
 
 ### ProgressBar.tsx
-- 2px horizontal bar pinned to bottom of screen
+- 4px horizontal bar pinned to top of screen
 - Framer Motion `motion.div` animating `width` as percentage of questions answered
 
 ### PillButton.tsx
@@ -274,9 +269,11 @@ Recalculate running fit score after every answer using only answered questions s
 
 ### MultiSelect.tsx
 - Same pill style as PillButton but multi-select
-- All selected options: purple fill (`#7C3AED`) regardless of signal value
+- Each option is `flex justify-between` to accommodate the checkmark
+- All selected options: purple fill (`#7C3AED`) regardless of signal value; an animated `✓` appears on the right (scale + fade, 150ms ease-out, `AnimatePresence` for exit animation)
 - Signal (green/red/neutral) is used only in scoring - it is never surfaced visually
 - After toggling an option, focus stays on that button (do not advance focus to Next)
+- In `QuestionScreen.tsx`, render a small ghost chip "select all that apply" between the question `<h2>` and the answer area for multiselect questions only
 
 ### ResultScreen.tsx
 - Receives `fitScore`, `userName`, `companyName`, `onEmailSubmit` props

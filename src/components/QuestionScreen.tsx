@@ -157,9 +157,14 @@ export default function QuestionScreen({
           >
             <div className="max-w-2xl w-full mx-auto flex flex-col flex-1">
               {/* Question text */}
-              <h2 className="font-serif text-[32px] max-sm:text-[26px] leading-[1.3] text-paper mb-10">
+              <h2 className="font-serif text-[32px] max-sm:text-[26px] leading-[1.3] text-paper mb-3">
                 {questionText}
               </h2>
+              {question.type === 'multiselect' && (
+                <span className="inline-block font-sans text-xs text-paper/40 bg-paper/[0.06] px-3 py-1 rounded-full mb-7">
+                  select all that apply
+                </span>
+              )}
 
               {/* Answer area */}
               <div ref={answerAreaRef} className="flex-1">

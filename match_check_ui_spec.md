@@ -89,7 +89,9 @@ After company confirmed - CTA button appears (Framer Motion: fade in):
 
 **Self-selection (multi-select pills):**
 - Same pill style as single choice
+- A small ghost chip "select all that apply" appears between the question text and the options (DM Sans, 12px, `rgba(250,249,246,0.4)` text, `rgba(250,249,246,0.06)` background, `rounded-full`, padding 4px 12px)
 - All selected options: `#7C3AED` background regardless of signal value
+- Selected state shows an animated `✓` on the right side of the pill (scale + fade in, 150ms ease-out; exits on deselect)
 - Signal (green/red/neutral) affects scoring only - it is never surfaced visually to the user
 
 **Navigation row** (below answer area):
@@ -104,7 +106,7 @@ After company confirmed - CTA button appears (Framer Motion: fade in):
 - Welcome screen: after company input is confirmed, focus moves to the CTA button (matches the same pattern as name - focus always advances to the next actionable element).
 
 **Progress bar:**
-- 2px line pinned to very bottom of screen
+- 4px line pinned to very top of screen
 - Track: `rgba(250,249,246,0.1)` full width
 - Fill: `#7C3AED`, animates width on each question advance (Framer Motion, 400ms ease-out)
 

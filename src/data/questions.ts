@@ -3,36 +3,12 @@ import type { Question } from '../types'
 export const questions: Question[] = [
   // Cluster 1 - Structure and ambiguity
   {
-    id: 'C1Q1',
-    cluster: 1,
-    type: 'tradeoff',
-    text: '{companyName} is scaling fast. Which problem would concern you more?',
-    options: [
-      { id: 'C1Q1A', text: 'Things are moving so fast that we\'re making avoidable mistakes', score: 0 },
-      { id: 'C1Q1B', text: 'We\'re adding process and structure faster than we actually need it', score: 100 },
-    ],
-  },
-  {
     id: 'C1Q2',
     cluster: 1,
     type: 'slider',
     text: 'Where does your organization sit?',
     sliderLeftLabel: 'Decisions flow up',
     sliderRightLabel: 'Decisions happen where the knowledge is',
-  },
-  {
-    id: 'C1Q3',
-    cluster: 1,
-    type: 'multiselect',
-    text: 'Be honest {userName}, which of these phrases would your colleagues most likely use to describe how your org handles uncertainty?',
-    options: [
-      { id: 'C1Q3A', text: 'We move and adjust', score: 0, signal: 'green' },
-      { id: 'C1Q3B', text: 'People just figure it out', score: 0, signal: 'green' },
-      { id: 'C1Q3C', text: 'We align before we act', score: 0, signal: 'red' },
-      { id: 'C1Q3D', text: 'We\'re working on it', score: 0, signal: 'neutral' },
-      { id: 'C1Q3E', text: 'It depends who you ask', score: 0, signal: 'neutral' },
-      { id: 'C1Q3F', text: 'Honestly, it\'s a bit chaotic', score: 0, signal: 'neutral' },
-    ],
   },
   {
     id: 'C1Q4',
@@ -48,14 +24,6 @@ export const questions: Question[] = [
   },
 
   // Cluster 2 - Culture and psychological safety
-  {
-    id: 'C2Q2',
-    cluster: 2,
-    type: 'slider',
-    text: '{userName}, how would you describe your organization\'s relationship with being wrong?',
-    sliderLeftLabel: 'Mistakes are costly and visibility around them is managed carefully',
-    sliderRightLabel: 'Mistakes are expected, shared openly, and treated as information',
-  },
   {
     id: 'C2Q3',
     cluster: 2,
@@ -95,16 +63,6 @@ export const questions: Question[] = [
 
   // Cluster 3 - Motivation and trust
   {
-    id: 'C3Q2',
-    cluster: 3,
-    type: 'tradeoff',
-    text: 'When onboarding a new senior hire, what\'s {companyName}\'s default stance?',
-    options: [
-      { id: 'C3Q2A', text: 'We give them access and autonomy and see what they do with it', score: 100 },
-      { id: 'C3Q2B', text: 'We have a structured onboarding that defines expectations before expanding scope', score: 40 },
-    ],
-  },
-  {
     id: 'C3Q3',
     cluster: 3,
     type: 'single',
@@ -142,16 +100,6 @@ export const questions: Question[] = [
   },
 
   // Cluster 4 - Leadership philosophy
-  {
-    id: 'C4Q1',
-    cluster: 4,
-    type: 'tradeoff',
-    text: 'At {companyName}, when a critical project needs a leader, what typically happens?',
-    options: [
-      { id: 'C4Q1A', text: 'The most senior available person takes ownership', score: 0 },
-      { id: 'C4Q1B', text: 'The person with the most relevant expertise or drive steps up, regardless of level', score: 100 },
-    ],
-  },
   {
     id: 'C4Q2',
     cluster: 4,
